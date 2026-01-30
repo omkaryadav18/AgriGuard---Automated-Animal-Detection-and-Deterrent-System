@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="{{ url_for('static', filename='videos/dashboard_video.mp4') }}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <nav>
+        <div class="nav-logo">AgriGuard+</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('data') }}" class="active">Data</a></li>
+            <li><a href="{{ url_for('live') }}">Live View</a></li>
+            <li><a href="{{ url_for('index') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Data Log</h1>
+        <div class="filters">
+            <input type="search" id="search-bar" placeholder="Search data...">
+            <button class="btn" id="select-btn">Select</button>
+            <button class="btn" id="reset-btn" style="display: none;">Cancel</button>
+            <button class="btn btn-delete" id="delete-btn" style="display: none;">Delete Selected</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="select-col" style="display: none;"><input type="checkbox" id="select-all-checkbox"></th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Animal Name</th>
+                        <th>Image Capture</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table-body">
+                    <tr><td colspan="5" style="text-align: center;">Loading data...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const API_URL_GET = "{{ url_for('get_detections') }}";
+        const API_URL_DELETE = "{{ url_for('delete_detections') }}";
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

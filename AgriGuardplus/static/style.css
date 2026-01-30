@@ -1,0 +1,426 @@
+/* --- 
+Agriculture Guard CSS - UPDATED FOR VIDEO BACKGROUND & FIXED HEADER
+--- */
+
+/* --- 1. General Styles --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff; 
+    background-color: transparent;
+    min-height: 100vh;
+    box-sizing: border-box; /* Fix for padding issues */
+    overflow-x: hidden; /* Prevent horizontal scroll on phones */
+}
+
+/* --- NEW: Fullscreen Video Background --- */
+.video-background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100; 
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: -99; 
+}
+
+/* --- 2. Containers (Modified for Clickability) --- */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    position: relative;
+    z-index: 10;
+    width: 90%; /* Responsive width */
+}
+
+.btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* --- 3. Authentication (index.html) --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.auth-form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box; 
+    border-radius: 5px;
+    color: #ffffff; 
+    background-color: rgba(255, 255, 255, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.auth-form .btn {
+    width: 100%;
+}
+.toggle-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+.toggle-link a {
+    color: #007BFF;
+    text-decoration: none;
+    cursor: pointer;
+}
+.password-toggle-icon {
+    cursor: pointer;
+    user-select: none; 
+    color: #007BFF; 
+    margin-left: 5px; 
+    font-size: 0.9em; 
+}
+.error-message {
+    color: #ff6b6b; 
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 5px;
+    min-height: 1.2em; 
+}
+
+/* --- 4. Navigation & Header Layout --- */
+
+/* Fixed Header Wrapper */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85); /* Slightly darker for mobile readability */
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent !important;
+    color: white;
+    padding: 15px 5%; /* Percentage padding for mobile */
+    border-bottom: none;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.nav-links li {
+    margin-left: 20px;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+.nav-links a.active, .nav-links a:hover {
+    color: #007BFF;
+}
+
+/* Control Bar (Inside Header) */
+.control-bar {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Header Toggle Switch */
+.header-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+.header-switch input { opacity: 0; width: 0; height: 0; }
+.header-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.header-slider:before {
+    position: absolute;
+    content: "";
+    height: 14px; width: 14px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .header-slider { background-color: #28a745; }
+input:checked + .header-slider:before { transform: translateX(20px); }
+
+
+/* --- 5. Data Page & Old Toggle Styles --- */
+.toggle-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.toggle-container h3 { margin-top: 0; }
+.switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; }
+input:checked + .slider { background-color: #28a745; }
+input:focus + .slider { box-shadow: 0 0 1px #28a745; }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* --- 6. Data Page Tables --- */
+.filters { margin-bottom: 20px; }
+.filters input { padding: 10px; margin-right: 10px; color: #ffffff; background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 5px; }
+.table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */ }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; min-width: 600px; /* Force scroll on small screens */ }
+th, td { border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px; text-align: left; color: #ffffff; }
+thead { background-color: rgba(0, 0, 0, 0.5); }
+tbody tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.1); }
+tbody tr:nth-child(odd) { background-color: rgba(255, 255, 255, 0.2); }
+
+/* --- 7. Live Page --- */
+.page-layout { display: flex; background-color: transparent; position: relative; z-index: 10; }
+.sidebar { width: 250px; background: rgba(0, 0, 0, 0.6); padding: 20px; min-height: 80vh; border-right: 1px solid rgba(255, 255, 255, 0.2); }
+.main-content { flex-grow: 1; padding: 20px; }
+.live-video-overlay-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60vw; height: 60vh; max-width: 900px; max-height: 500px; z-index: 10; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.8); border: 5px solid #00f; border-radius: 15px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); }
+.main-content .live-box { 
+    max-width: 800px; 
+    width: 100%; /* Responsive width */
+    margin: 20px auto; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    border: 3px solid rgba(0, 200, 255, 0.463); 
+    border-radius: 10px; 
+    overflow: hidden; 
+    height: auto; /* Let height adjust to video */
+    min-height: 250px;
+    box-shadow: 0 4px 15px #6f71714d; 
+}
+.main-content .live-box img { width: 100%; height: auto; display: block; border-radius: 7px; }
+
+/* --- 8. Home Page HERO & DETAILS --- */
+.hero-section {
+    min-height: 100vh; /* Changed from height to min-height for mobile */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding-top: 140px; 
+    padding-bottom: 50px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    animation: fadeInDown 1.5s ease-out;
+    padding: 0 10px; /* Prevent text touching edges */
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    animation: bounce 2s infinite;
+    opacity: 0.8;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    background-color: #111;
+    color: white;
+}
+
+.full-width-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    border-bottom: 1px solid #333;
+    min-height: 60vh;
+}
+
+.full-width-box:nth-child(even) {
+    background-color: #1a1a1a;
+    flex-direction: row-reverse;
+}
+
+.info-text {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    padding: 40px;
+}
+.info-text h2 { font-size: 2.5rem; color: #007BFF; margin-bottom: 20px; }
+.info-text p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
+.info-visual { flex: 1; min-width: 300px; max-width: 500px; display: flex; justify-content: center; font-size: 8rem; }
+
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+@keyframes fadeInDown { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+@keyframes fadeInUp { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+
+/* =========================================
+   9. MOBILE RESPONSIVE FIXES (THE MAGIC)
+========================================= */
+@media (max-width: 768px) {
+    
+    /* A. Navigation Adjustments */
+    nav {
+        flex-direction: column;
+        padding: 15px;
+    }
+    .nav-logo {
+        margin-bottom: 10px;
+    }
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+    .nav-links li {
+        margin: 0;
+    }
+    
+    /* B. Hero Text Scaling */
+    .hero-content h1 {
+        font-size: 2.5rem; /* Smaller title for phone */
+        line-height: 1.2;
+    }
+    .hero-content p {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+    
+    /* C. Content Box Stacking */
+    .full-width-box {
+        padding: 40px 15px;
+        flex-direction: column !important; /* Force vertical stack */
+        text-align: center;
+    }
+    .info-text {
+        padding: 20px 0;
+        min-width: 100%;
+    }
+    .info-text h2 { font-size: 1.8rem; }
+    .info-text p { font-size: 1rem; }
+    
+    /* D. Live Page Layout */
+    .page-layout {
+        flex-direction: column; /* Stack sidebar on top of content */
+    }
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    .main-content {
+        padding: 10px;
+    }
+    
+    /* E. Video Box Resizing */
+    .live-video-overlay-wrapper {
+        width: 95%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+    .main-content .live-box {
+        height: auto;
+        min-height: 200px;
+    }
+
+    /* F. Button Sizing */
+    .btn {
+        padding: 12px 20px;
+        font-size: 1.1rem; /* Easier to tap */
+    }
+}

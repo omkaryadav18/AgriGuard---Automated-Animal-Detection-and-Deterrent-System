@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AgriGuard+</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="{{ url_for('static', filename='videos/dashboard_video.mp4') }}" type="video/mp4">
+    </video>
+    <div class="video-overlay" style="opacity: 0.4;"></div>
+
+    <div class="fixed-header">
+        
+        <nav>
+            <div class="nav-logo">AgriGuard+</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+                <li><a href="{{ url_for('data') }}">Data</a></li>
+                <li><a href="{{ url_for('live') }}">Live View</a></li>
+                {% if logged_in %}
+                    <li><a href="{{ url_for('index') }}" class="btn" style="background: #dc3545; padding: 5px 15px;">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('index') }}" class="btn" style="padding: 5px 15px;">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="control-bar">
+            {% if logged_in %}
+                <span style="color: #ccc; font-size: 0.85rem; letter-spacing: 1px;">SYSTEM STATUS:</span>
+                <span id="status-text" style="color: white; font-weight: bold; font-size: 0.9rem; min-width: 60px;">...</span>
+                
+                <label class="header-switch">
+                    <input type="checkbox" id="system-toggle">
+                    <span class="header-slider"></span>
+                </label>
+            {% else %}
+                <span style="color: #aaa; font-size: 0.85rem;">🔒 Login to enable System Control</span>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>AgriGuard+</h1>
+            <p>Next-Gen Wildlife Protection & Farm Security</p>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span style="font-size: 3rem; color: white;">&#x2193;</span>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <div class="full-width-box">
+            <div class="info-text">
+                <h2>AI-Powered Vision</h2>
+                <p>
+                    Stop relying on manual patrols. AgriGuard+ utilizes a custom-trained 
+                    <strong>YOLOv8 Neural Network</strong> to monitor your fields 24/7. 
+                    It distinguishes between harmless humans and potential threats like 
+                    elephants, boars, and predators in milliseconds with high accuracy.
+                </p>
+            </div>
+            <div class="info-visual">🧠</div>
+        </div>
+
+        <div class="full-width-box">
+            <div class="info-text">
+                <h2>Smart Deterrence</h2>
+                <p>
+                    Prevention is better than conflict. Upon detecting an intrusion, 
+                    our system automatically triggers <strong>bio-acoustic deterrents</strong>.
+                    It plays specific predator sounds (like lions) or alarms to safely 
+                    turn animals away without causing physical harm.
+                </p>
+            </div>
+            <div class="info-visual">🔊</div>
+        </div>
+
+        <div class="full-width-box">
+            <div class="info-text">
+                <h2>Visual Evidence Log</h2>
+                <p>
+                    Keep a complete history of farm activity. Every detection is 
+                    time-stamped and saved with a high-resolution snapshot. 
+                    Access your secure <strong>Data Dashboard</strong> to review incidents, 
+                    download reports, and identify movement patterns.
+                </p>
+            </div>
+            <div class="info-visual">📸</div>
+        </div>
+
+        <div class="full-width-box">
+            <div class="info-text">
+                <h2>Total Control, Anywhere</h2>
+                <p>
+                    Whether you are at the market or in your home, you are in charge.
+                    Toggle the entire security system <strong>ON or OFF</strong> remotely 
+                    with a single switch. View the live camera feed instantly from 
+                    any device connected to the network.
+                </p>
+            </div>
+            <div class="info-visual">🌍</div>
+        </div>
+
+        <div style="text-align: center; padding: 20px; background: #000; color: #555;">
+            &copy; 2025 AgriGuard+ Project. All Rights Reserved.
+        </div>
+
+    </div>
+
+    {% if logged_in %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleSwitch = document.getElementById('system-toggle');
+        const statusText = document.getElementById('status-text');
+        
+        // 1. Get Initial Status
+        fetch("{{ url_for('get_status') }}")
+            .then(res => res.json())
+            .then(data => updateButtonState(data.status))
+            .catch(err => { statusText.innerText = "ERR"; statusText.style.color = "red"; });
+
+        // 2. Handle Click
+        toggleSwitch.addEventListener('change', function() {
+            const newStatus = this.checked ? 'ON' : 'OFF';
+            fetch("{{ url_for('toggle_status') }}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) updateButtonState(data.new_status);
+                else { alert("Error: " + data.error); this.checked = !this.checked; } 
+            });
+        });
+
+        function updateButtonState(status) {
+            if (status === 'ON') {
+                toggleSwitch.checked = true;
+                statusText.innerText = 'ACTIVE';
+                statusText.style.color = '#28a745'; // Green
+            } else {
+                toggleSwitch.checked = false;
+                statusText.innerText = 'OFF';
+                statusText.style.color = '#dc3545'; // Red
+            }
+        }
+    });
+    </script>
+    {% endif %}
+
+</body>
+</html>

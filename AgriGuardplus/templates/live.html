@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="{{ url_for('static', filename='videos/dashboard_video.mp4') }}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <nav>
+        <div class="nav-logo">AgriGuard+</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('data') }}">Data</a></li>
+            <li><a href="{{ url_for('live') }}" class="active">Live View</a></li>
+            <li><a href="{{ url_for('index') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-layout">
+        <aside class="sidebar">
+            <h3>News</h3>
+            <p>Monitoring active...</p>
+        </aside>
+
+        <main class="main-content">
+            <h2>Live Feed</h2>
+            <div class="live-box">
+                <img src="{{ url_for('video_feed') }}" width="100%" alt="Live Camera Feed">
+            </div>
+        </main>
+    </div>
+</body>
+</html>
