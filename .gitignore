@@ -1,3 +1,4 @@
 *.pt
 *.mp4
+*.env
 AgriGuardplus/static/detections/*.jpg
