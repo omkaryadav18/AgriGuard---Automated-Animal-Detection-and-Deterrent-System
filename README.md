@@ -15,7 +15,6 @@ Table of Contents
 - [Deployment Considerations](#deployment-considerations)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
-- [License](#license)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
@@ -85,7 +84,7 @@ If you prefer venv + requirements:
 - If a `requirements.txt` is added later:
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
@@ -101,7 +100,7 @@ Create or edit a configuration file (e.g., `config.json`) with these typical set
   - device index or URL (e.g., `0` or `rtsp://...`)
   - frame width, height, fps
 - model:
-  - type (e.g., `yolov5`, `tflite`, `mobilenet_ssd`)
+  - type (e.g., `yolov11`, `tflite`)
   - path to model weights
   - confidence threshold (e.g., 0.5)
   - classes to detect (e.g., `["cow","deer","boar"]`)
@@ -184,11 +183,9 @@ Contributions are welcome! Suggested workflow:
 
 Please open issues for bugs, feature requests, or help with hardware integration.
 
-## License
-This repository does not include a license file by default. If you want this project to be open source, consider adding an OSI-approved license (e.g., MIT, Apache-2.0). For now, add a LICENSE file to make intent explicit.
 
 ## Acknowledgements
-- Open-source object detection frameworks and model zoos (YOLO, MobileNet, TensorFlow, PyTorch).
+- Open-source object detection frameworks and model zoos (YOLO, TensorFlow, PyTorch).
 - Hardware and community projects demonstrating edge AI for agriculture.
 
 ## Contact
