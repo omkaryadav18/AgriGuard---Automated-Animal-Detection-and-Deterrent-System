@@ -1,0 +1,11 @@
+flask
+flask-talisman
+flask-caching
+python-dotenv
+opencv-python
+mysql-connector-python
+werkzeug
+ultralytics
+numpy
+playsound==1.2.2
+requests
