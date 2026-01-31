@@ -36,8 +36,8 @@ DETECTIONS_FOLDER = os.path.join('static', 'detections')
 os.makedirs(DETECTIONS_FOLDER, exist_ok=True) 
 
 # --- YOUR EMAIL CREDENTIALS ---
-SMTP_EMAIL = "chvinaykumarchviti@gmail.com" 
-SMTP_PASSWORD = "imeg vgrq cepq qlhl"      
+SMTP_EMAIL = "omkarjntucollege@gmail.com" 
+SMTP_PASSWORD = "ayzw wdln onbd zatn"      
 
 # --- GLOBAL VARS ---
 system_status = {'status': 'OFF'} 
