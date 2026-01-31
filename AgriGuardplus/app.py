@@ -51,15 +51,17 @@ otp_storage = {}
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': '1234', 
-    'database': 'agriguard_db'
+    'password': 'root123', 
+    'database': 'agriguard_db',
+    'port':3307
 }
 
 connection_pool = None
 try:
     connection_pool = pooling.MySQLConnectionPool(pool_name="agri_pool", pool_size=5, pool_reset_session=True, **db_config)
     print("✅ Database Pool Created.")
-except Exception as e: print(f"❌ DB Error: {e}")
+except Exception as e:
+    print(f"❌ DB Error: {e}")
 
 # --- HELPER: SEND EMAIL ---
 def send_email(to_email, subject, body):
